@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.twitchyzombie.window-atlas",
+  "name": "Window Atlas",
+  "version": "0.1.0",
+  "author": "TwitchyZombie",
+  "license": "MIT",
+  "description": "Live window overview with workspace switching, search, drag-to-move, and saved app arrangements",
+  "homepage": "https://github.com/TwitchyZombie/window-atlas",
+  "repository": "https://github.com/TwitchyZombie/window-atlas.git",
+  "keywords": [
+    "hyprland",
+    "quickshell",
+    "workspaces"
+  ],
+  "kinds": [
+    "overlay"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "overlay": "WindowAtlas.qml"
+  }
+}

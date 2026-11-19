@@ -4,8 +4,14 @@ import sys
 from atlas_backend import launch, move_windows, restore
 
 try:
-    operation, payload = sys.argv[1:]
-    data = json.loads(payload)
+    operation, *arguments = sys.argv[1:]
+    if operation == 'restore':
+        if arguments:
+            raise ValueError('Restore requires JSON on standard input')
+        data = json.loads(sys.stdin.buffer.readline())
+    else:
+        payload, = arguments
+        data = json.loads(payload)
     if operation == 'move':
         result = move_windows(data)
     elif operation == 'launch':

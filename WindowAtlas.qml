@@ -55,7 +55,11 @@ Item {
     function runTool(action, payload) {
         if (busy) { notice = "Please wait for the current operation"; return false; }
         operation = action;
-        mover.command = ["python", Qt.resolvedUrl("workspace-tools.py").toString().replace("file://", ""), action === "undo" ? "move" : action, JSON.stringify(payload)];
+        const command = ["python", Qt.resolvedUrl("workspace-tools.py").toString().replace("file://", ""), action === "undo" ? "move" : action];
+        const json = JSON.stringify(payload);
+        if (action === "restore") mover.restoreInput = json;
+        else command.push(json);
+        mover.command = command;
         mover.running = true;
         return true;
     }
@@ -341,6 +345,14 @@ Item {
     }
     Process {
         id: mover
+        property string restoreInput: ""
+        stdinEnabled: true
+        onStarted: {
+            if (app.operation === "restore") {
+                write(restoreInput + "\n");
+            }
+            restoreInput = "";
+        }
         stdout: StdioCollector {
             onStreamFinished: {
                 try {

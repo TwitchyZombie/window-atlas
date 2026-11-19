@@ -52,7 +52,8 @@ installing this plugin. `./toggle` runs the same command.
 
 Settings, desktop names, and saved arrangements are stored in
 `${XDG_CONFIG_HOME:-$HOME/.config}/window-atlas.ini`. Saved arrangements include
-app identities and window titles; no personal settings ship in the repository.
+app identities and window titles. Atlas passes saved arrangements to its restore
+helper over standard input, keeping window titles out of process arguments.
 No previews are saved to disk and no network requests are made by the plugin.
 App launches use installed desktop entries through `gtk-launch`. Window actions
 use `hyprctl`; no shell is used to evaluate window titles or search strings.
